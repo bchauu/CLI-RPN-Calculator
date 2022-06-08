@@ -71,10 +71,12 @@ const checkSymbol = (input) => {
 const RPNCalculator = function () {
   rl.question('Enter a number or operator symbol: ', (answer) => {
     if (answer === 'quit') return rl.close(); // exits command prompt and ends recursion
+    if (answer === 'check stack') {
+      console.log(operandStack, operandStack.size());
+    }
 
     const answerInArray = answer.split('');
     const answerInSet = new Set(answerInArray);
-    console.log(answerInArray);
 
     // checks for multiple inputs at once
     if (answerInSet.has(' ')) {
@@ -113,8 +115,6 @@ const RPNCalculator = function () {
       console.log(answer);
     } else if (!Number.isInteger(parseInt(answer))) {
       console.log('Not a valid input. Enter an integer or operator');
-    } else {
-      console.log(operandStack, operandStack.size());
       // console.log("Please enter an integer or operator");
       // console log that was an invalid input to the calculator
     }
