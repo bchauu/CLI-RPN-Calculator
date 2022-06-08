@@ -50,9 +50,27 @@ const operandStack = new Stack();
 const operators = new Set(['+', '-', '/', '*']);
 console.log(operators);
 
+// helper function
+const checkSymbol = (input) => {
+  const firstOperand = operandStack.pop();
+  const secondOperand = operandStack.pop();
+  let result;
+  if (input === '+') {
+    result = parseInt(firstOperand) + parseInt(secondOperand);
+  } else if (input === '-') {
+    result = parseInt(secondOperand) - parseInt(firstOperand);
+  } else if (input === '*') {
+    result = parseInt(firstOperand) * parseInt(secondOperand);
+  } else if (input === '/') {
+    result = parseInt(secondOperand) / parseInt(firstOperand);
+  }
+  operandStack.push(result);
+  console.log(result);
+};
+
 const RPNCalculator = function () {
   rl.question('Enter a number or operator symbol: ', (answer) => {
-    if (answer === 'quit') return rl.close(); // exits command prompt
+    if (answer === 'quit') return rl.close(); // exits command prompt and ends recursion
 
     const answerInArray = answer.split('');
     const answerInSet = new Set(answerInArray);
@@ -66,20 +84,7 @@ const RPNCalculator = function () {
         if (answerInArray[i] === ' ') {
           const input = answerInArray.slice(begin, end).join('');
           if (operators.has(input)) {
-            const firstOperand = operandStack.pop();
-            const secondOperand = operandStack.pop();
-            let result;
-            if (input === '+') {
-              result = parseInt(firstOperand) + parseInt(secondOperand);
-            } else if (input === '-') {
-              result = parseInt(secondOperand) - parseInt(firstOperand);
-            } else if (input === '*') {
-              result = parseInt(firstOperand) * parseInt(secondOperand);
-            } else if (input === '/') {
-              result = parseInt(secondOperand) / parseInt(firstOperand);
-            }
-            operandStack.push(result);
-            console.log(result);
+            checkSymbol(input);
           } else if (Number.isInteger(parseInt(input))) {
             operandStack.push(input);
           }
@@ -87,20 +92,7 @@ const RPNCalculator = function () {
         } else if (i === answerInArray.length - 1) {
           const input = answerInArray.slice(begin, end + 1).join('');
           if (operators.has(input)) {
-            const firstOperand = operandStack.pop();
-            const secondOperand = operandStack.pop();
-            let result;
-            if (input === '+') {
-              result = parseInt(firstOperand) + parseInt(secondOperand);
-            } else if (input === '-') {
-              result = parseInt(secondOperand) - parseInt(firstOperand);
-            } else if (input === '*') {
-              result = parseInt(firstOperand) * parseInt(secondOperand);
-            } else if (input === '/') {
-              result = parseInt(secondOperand) / parseInt(firstOperand);
-            }
-            operandStack.push(result);
-            console.log(result);
+            checkSymbol(input);
           } else if (Number.isInteger(parseInt(input))) {
             operandStack.push(input);
           }
@@ -112,39 +104,22 @@ const RPNCalculator = function () {
       // or one variable and continue until no more whitespace or end of length
       // needs to be if else or it'll push stack twice
     } else if (operators.has(answer) && operandStack.size() >= 2) {
-      const firstOperand = operandStack.pop();
-      const secondOperand = operandStack.pop();
-      let result;
-      if (answer === '+') {
-        result = parseInt(firstOperand) + parseInt(secondOperand);
-      } else if (answer === '-') {
-        result = parseInt(secondOperand) - parseInt(firstOperand);
-      } else if (answer === '*') {
-        result = parseInt(firstOperand) * parseInt(secondOperand);
-      } else if (answer === '/') {
-        result = parseInt(secondOperand) / parseInt(firstOperand);
-      }
-
-      console.log(result);
-      operandStack.push(result);
+      checkSymbol(answer);
     } else if (operators.has(answer) && operandStack.count <= 2) {
       console.log('not enough operands in the stack');
       // return error
     } else if (Number.isInteger(parseInt(answer))) {
       operandStack.push(answer);
       console.log(answer);
-      // console log answer
-    }
-    // else if (!Number.isInteger(parseInt(answer))) {
-    //     console.log("Not a valid input. Enter an integer or operator");
-    //  }
-    else {
+    } else if (!Number.isInteger(parseInt(answer))) {
+      console.log('Not a valid input. Enter an integer or operator');
+    } else {
       console.log(operandStack, operandStack.size());
       // console.log("Please enter an integer or operator");
       // console log that was an invalid input to the calculator
     }
 
-    RPNCalculator(); // recursively calls to continue prompting for more inputs
+    return RPNCalculator(); // recursively calls to continue prompting for additional inputs
   });
 };
 
