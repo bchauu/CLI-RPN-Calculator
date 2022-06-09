@@ -1,6 +1,9 @@
 /* eslint-disable radix */
-import readline from 'readline';
-import color from 'colors-cli';
+// import { createInterface } from 'readline'; 
+// import { red } from 'colors-cli';
+
+const readline = require('readline'); 
+const color = require('colors-cli');
 
 class Stack {
   constructor() {
@@ -51,9 +54,7 @@ const operators = new Set(['+', '-', '/', '*']);
 console.log(operators);
 
 // helper function
-const checkSymbol = (input) => {
-  const firstOperand = operandStack.pop();
-  const secondOperand = operandStack.pop();
+const computeWithSymbol = (input, firstOperand, secondOperand) => {
   let result;
   if (input === '+') {
     result = parseInt(firstOperand) + parseInt(secondOperand);
@@ -64,8 +65,9 @@ const checkSymbol = (input) => {
   } else if (input === '/') {
     result = parseInt(secondOperand) / parseInt(firstOperand);
   }
-  operandStack.push(result);
+  // operandStack.push(result);
   console.log(result);
+  return result;
 };
 
 const RPNCalculator = function () {
@@ -86,7 +88,9 @@ const RPNCalculator = function () {
         if (answerInArray[i] === ' ') {
           const input = answerInArray.slice(begin, end).join('');
           if (operators.has(input)) {
-            checkSymbol(input);
+            const firstOperand = operandStack.pop();
+            const secondOperand = operandStack.pop();
+            operandStack.push(computeWithSymbol(input, firstOperand, secondOperand));
           } else if (Number.isInteger(parseInt(input))) {
             operandStack.push(input);
           }
@@ -94,7 +98,9 @@ const RPNCalculator = function () {
         } else if (i === answerInArray.length - 1) {
           const input = answerInArray.slice(begin, end + 1).join('');
           if (operators.has(input)) {
-            checkSymbol(input);
+            const firstOperand = operandStack.pop();
+            const secondOperand = operandStack.pop();
+            operandStack.push(computeWithSymbol(input, firstOperand, secondOperand));
           } else if (Number.isInteger(parseInt(input))) {
             operandStack.push(input);
           }
@@ -106,7 +112,9 @@ const RPNCalculator = function () {
       // or one variable and continue until no more whitespace or end of length
       // needs to be if else or it'll push stack twice
     } else if (operators.has(answer) && operandStack.size() >= 2) {
-      checkSymbol(answer);
+      const firstOperand = operandStack.pop();
+      const secondOperand = operandStack.pop();
+      operandStack.push(computeWithSymbol(answer, firstOperand, secondOperand));
     } else if (operators.has(answer) && operandStack.count <= 2) {
       console.log('not enough operands in the stack');
       // return error
@@ -124,3 +132,6 @@ const RPNCalculator = function () {
 };
 
 RPNCalculator();
+
+
+export default computeWithSymbol;
