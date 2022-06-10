@@ -1,9 +1,10 @@
 /* eslint-disable radix */
 // import { createInterface } from 'readline'; 
 // import { red } from 'colors-cli';
+import readline from 'readline';
 
-const readline = require('readline'); 
-const color = require('colors-cli');
+// const readline = require('readline'); 
+// const color = require('colors-cli');
 
 class Stack {
   constructor() {
@@ -46,7 +47,7 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-console.log(color.red('hello'));
+// console.log(color.red('hello'));
 
 const operandStack = new Stack();
 
@@ -55,13 +56,14 @@ console.log(operators);
 
 // helper function
 const computeWithSymbol = (input, firstOperand, secondOperand) => {
+  if (!operators.has(input) || !Number.isInteger(parseInt(firstOperand)) || !Number.isInteger(parseInt(secondOperand))) return 'invalid input';
   let result;
   if (input === '+') {
-    result = parseInt(firstOperand) + parseInt(secondOperand);
+    result = parseInt(secondOperand) + parseInt(firstOperand);
   } else if (input === '-') {
     result = parseInt(secondOperand) - parseInt(firstOperand);
   } else if (input === '*') {
-    result = parseInt(firstOperand) * parseInt(secondOperand);
+    result = parseInt(secondOperand) * parseInt(firstOperand);
   } else if (input === '/') {
     result = parseInt(secondOperand) / parseInt(firstOperand);
   }
