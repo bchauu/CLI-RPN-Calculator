@@ -1,7 +1,6 @@
 /* eslint-disable radix */
-// import { createInterface } from 'readline'; 
-// import { red } from 'colors-cli';
 import readline from 'readline';
+import color from "colors-cli";
 
 // const readline = require('readline'); 
 // const color = require('colors-cli');
@@ -47,14 +46,14 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-// console.log(color.red('hello'));
+console.log(color.red('hello'));
 
 const operandStack = new Stack();
 
 const operators = new Set(['+', '-', '/', '*']);
 console.log(operators);
 
-// helper function
+// helper function to check symbols and compute
 const computeWithSymbol = (input, firstOperand, secondOperand) => {
   if (!operators.has(input) || !Number.isInteger(parseInt(firstOperand)) || !Number.isInteger(parseInt(secondOperand))) return 'invalid input';
   let result;
@@ -135,5 +134,4 @@ const RPNCalculator = function () {
 
 RPNCalculator();
 
-
-export default computeWithSymbol;
+export { computeWithSymbol, RPNCalculator };

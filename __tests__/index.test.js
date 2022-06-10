@@ -1,4 +1,6 @@
-import computeWithSymbol from "../index";
+// import * as funcs from "../index";
+import { describe } from "eslint/lib/rule-tester/rule-tester";
+import {computeWithSymbol, RPNCalculator} from "../index";
 
 describe("Checking operator symbol function", () => {
     test('function should return a number', () => {
@@ -39,5 +41,45 @@ describe("Checking operator symbol function", () => {
     });
 });
 
+describe('Calculates inputs through RPN', () => {
+    test('Function should recursively calls itself', () => {
 
+    });
+    
+    test('Function should close when prompted with exit', () => {
+
+    });
+
+    // test('When receiving " ", should have character split into array', () => {
+
+    // });
+
+    // test('When receiving " ", input should be length before next " "', () => {
+
+    // });
+
+    // test('When receiving " ", input should be length before next " "', () => {
+
+    // });
+
+    test('When receiving " ", should push each operator to a stack', () => {
+
+    });
+
+    test('When receiving " ", should calculate when there is an operand', () => {
+
+    });
+
+    test('Function should prompt "not enough inputs" if stack is less than 2', () => {
+
+    });
+
+    test('Function when prompt "check stack", should console log stack', () => {
+
+    });
+
+    test('Function should prompt "invalid input" when non number or operator is entered', () => {
+
+    });
+})
 //RPN Calculator: how to test recursion; how to test individual units within function
