@@ -1,45 +1,14 @@
 /* eslint-disable radix */
 import readline from 'readline';
 import color from "colors-cli";
+import ops from './operators.js';
+import rpn from './rpn.js';
+// import Stack from './stack.js';
+import operandStack from './stack.js';
 
-// const readline = require('readline'); 
-// const color = require('colors-cli');
-
-class Stack {
-  constructor() {
-    this.items = [];
-    this.count = 0;
-  }
-
-  push(element) {
-    this.items[this.count] = element;
-    console.log(`${element} added to ${this.count}`);
-    this.count += 1;
-    return this.count - 1;
-  }
-
-  pop(element) {
-    if (this.count === 0) return undefined;
-    // let deletedItem = this.items[this.count - 1];
-    const deletedItem = this.items.splice(this.count - 1, 1);
-    delete this.items[this.count - 1];
-    this.count -= 1;
-    console.log(`${deletedItem} removed`);
-    return deletedItem[0];
-  }
-
-  size() {
-    console.log(`${this.count} elements in stack`);
-    return this.count;
-  }
-
-  clear() {
-    this.items = [];
-    this.count = 0;
-    console.log('Stack is cleared');
-    return this.items;
-  }
-}
+const computeWithSymbols = ops.computeWithSymbol;
+const operators = ops.operators;
+const multipleInputs = rpn.multipleInputs;
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -48,30 +17,9 @@ const rl = readline.createInterface({
 
 console.log(color.red('hello'));
 
-const operandStack = new Stack();
+// const operandStack = new Stack();
 
-const operators = new Set(['+', '-', '/', '*']);
-console.log(operators);
-
-// helper function to check symbols and compute
-const computeWithSymbol = (input, firstOperand, secondOperand) => {
-  if (!operators.has(input) || !Number.isInteger(parseInt(firstOperand)) || !Number.isInteger(parseInt(secondOperand))) return 'invalid input';
-  let result;
-  if (input === '+') {
-    result = parseInt(secondOperand) + parseInt(firstOperand);
-  } else if (input === '-') {
-    result = parseInt(secondOperand) - parseInt(firstOperand);
-  } else if (input === '*') {
-    result = parseInt(secondOperand) * parseInt(firstOperand);
-  } else if (input === '/') {
-    result = parseInt(secondOperand) / parseInt(firstOperand);
-  }
-  // operandStack.push(result);
-  console.log(result);
-  return result;
-};
-
-const RPNCalculator = function () {
+const asnycprompt = function () {
   rl.question('Enter a number or operator symbol: ', (answer) => {
     if (answer === 'quit') return rl.close(); // exits command prompt and ends recursion
     if (answer === 'check stack') {
@@ -83,55 +31,28 @@ const RPNCalculator = function () {
 
     // checks for multiple inputs at once
     if (answerInSet.has(' ')) {
-      let begin = 0;
-      for (let i = 0; i < answerInArray.length; i += 1) {
-        const end = i;
-        if (answerInArray[i] === ' ') {
-          const input = answerInArray.slice(begin, end).join('');
-          if (operators.has(input)) {
-            const firstOperand = operandStack.pop();
-            const secondOperand = operandStack.pop();
-            operandStack.push(computeWithSymbol(input, firstOperand, secondOperand));
-          } else if (Number.isInteger(parseInt(input))) {
-            operandStack.push(input);
-          }
-          begin = i + 1;
-        } else if (i === answerInArray.length - 1) {
-          const input = answerInArray.slice(begin, end + 1).join('');
-          if (operators.has(input)) {
-            const firstOperand = operandStack.pop();
-            const secondOperand = operandStack.pop();
-            operandStack.push(computeWithSymbol(input, firstOperand, secondOperand));
-          } else if (Number.isInteger(parseInt(input))) {
-            operandStack.push(input);
-          }
-          begin = i + 1;
-        }
-      }
+      multipleInputs(answerInArray, operandStack);
 
-      // find the index where ' ' occurs and breakup and store into individual variables
-      // or one variable and continue until no more whitespace or end of length
-      // needs to be if else or it'll push stack twice
     } else if (operators.has(answer) && operandStack.size() >= 2) {
-      const firstOperand = operandStack.pop();
-      const secondOperand = operandStack.pop();
-      operandStack.push(computeWithSymbol(answer, firstOperand, secondOperand));
+      rpn.oneOperatorInput(answer);
     } else if (operators.has(answer) && operandStack.count <= 2) {
       console.log('not enough operands in the stack');
       // return error
     } else if (Number.isInteger(parseInt(answer))) {
-      operandStack.push(answer);
-      console.log(answer);
+      rpn.oneNumberInput(answer);
+      // operandStack.push(answer);
+      // console.log(answer);
     } else if (!Number.isInteger(parseInt(answer))) {
       console.log('Not a valid input. Enter an integer or operator');
-      // console.log("Please enter an integer or operator");
-      // console log that was an invalid input to the calculator
     }
 
-    return RPNCalculator(); // recursively calls to continue prompting for additional inputs
+    return asnycprompt(); // recursively calls to continue prompting for additional inputs
   });
 };
 
-RPNCalculator();
+// console.log(asnycprompt.rl.question)
 
-export { computeWithSymbol, RPNCalculator };
+asnycprompt();
+
+
+export { computeWithSymbols, asnycprompt };

@@ -1,5 +1,5 @@
 // import * as funcs from "../index";
-import { describe } from "eslint/lib/rule-tester/rule-tester";
+// import { describe } from "eslint/lib/rule-tester/rule-tester";
 import {computeWithSymbol, RPNCalculator} from "../index";
 
 describe("Checking operator symbol function", () => {
@@ -9,6 +9,7 @@ describe("Checking operator symbol function", () => {
         let secondOperand = 5;
 
           const output = Number.isInteger(10);
+          expect(console.log(RPNCalculator.rl))
           expect(Number.isInteger(computeWithSymbol(input, firstOperand, secondOperand))).toEqual(output);
           input = '-'
           firstOperand = '3';
@@ -32,7 +33,7 @@ describe("Checking operator symbol function", () => {
         expect(computeWithSymbol(input, firstOperand, secondOperand)).toEqual(18);
         input = '/';
         expect(computeWithSymbol(input, firstOperand, secondOperand)).toEqual(0.5);
-    })
+    });
 
     test('Function should return "invalid input" if input is invalid', () => {
         expect(computeWithSymbol('e', 10, 4)).toEqual('invalid input');
@@ -41,45 +42,35 @@ describe("Checking operator symbol function", () => {
     });
 });
 
-describe('Calculates inputs through RPN', () => {
-    test('Function should recursively calls itself', () => {
+// describe('Calculates inputs through RPN', () => {
+//     test('Function should recursively calls itself', () => {
 
-    });
+//         expect(RPNCalculator.rl.question()).toEqual(RPNCalculator)
+//     });
     
-    test('Function should close when prompted with exit', () => {
+//     test('Function should close when prompted with exit', () => {
 
-    });
+//     });
 
-    // test('When receiving " ", should have character split into array', () => {
 
-    // });
+//     test('When receiving " ", should push each operator to a stack', () => {
 
-    // test('When receiving " ", input should be length before next " "', () => {
+//     });
 
-    // });
+//     test('When receiving " ", should calculate when there is an operand', () => {
 
-    // test('When receiving " ", input should be length before next " "', () => {
+//     });
 
-    // });
+//     test('Function should prompt "not enough inputs" if stack is less than 2', () => {
 
-    test('When receiving " ", should push each operator to a stack', () => {
+//     });
 
-    });
+//     test('Function when prompt "check stack", should console log stack', () => {
 
-    test('When receiving " ", should calculate when there is an operand', () => {
+//     });
 
-    });
+//     test('Function should prompt "invalid input" when non number or operator is entered', () => {
 
-    test('Function should prompt "not enough inputs" if stack is less than 2', () => {
-
-    });
-
-    test('Function when prompt "check stack", should console log stack', () => {
-
-    });
-
-    test('Function should prompt "invalid input" when non number or operator is entered', () => {
-
-    });
-})
+//     });
+// })
 //RPN Calculator: how to test recursion; how to test individual units within function

@@ -3,6 +3,15 @@ Command Line Utility for Reverse Polish Notation Calculator
 
 
 1) A high-level description of your solution
+    asnycprompt to continously handle inputs from user
+
+    readline handles repeateded input from user
+         also checks if inputs from user are valid into an rpn
+    
+    rpn.js module for RPN class which has all the methods for rpn behavior
+
+    operator module checks for which operator will be used and computes with both operands
+
 
 2) Reasoning behind your technical choices, including architectural
     - Nodejs
