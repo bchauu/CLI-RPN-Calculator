@@ -3,7 +3,6 @@ import readline from 'readline';
 import color from "colors-cli";
 import ops from './operators.js';
 import rpn from './rpn.js';
-// import Stack from './stack.js';
 import operandStack from './stack.js';
 
 const computeWithSymbols = ops.computeWithSymbol;
@@ -16,8 +15,6 @@ const rl = readline.createInterface({
 });
 
 console.log(color.red('hello'));
-
-// const operandStack = new Stack();
 
 const asnycprompt = function () {
   rl.question('Enter a number or operator symbol: ', (answer) => {
@@ -34,12 +31,12 @@ const asnycprompt = function () {
       multipleInputs(answerInArray, operandStack);
 
     } else if (operators.has(answer) && operandStack.size() >= 2) {
-      rpn.oneOperatorInput(answer);
+      rpn.operatorInput(answer);
     } else if (operators.has(answer) && operandStack.count <= 2) {
       console.log('not enough operands in the stack');
       // return error
     } else if (Number.isInteger(parseInt(answer))) {
-      rpn.oneNumberInput(answer);
+      rpn.numberInput(answer);
       // operandStack.push(answer);
       // console.log(answer);
     } else if (!Number.isInteger(parseInt(answer))) {
@@ -55,4 +52,5 @@ const asnycprompt = function () {
 asnycprompt();
 
 
-export { computeWithSymbols, asnycprompt };
+// export { computeWithSymbols, asnycprompt };
+export default asnycprompt;

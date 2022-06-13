@@ -36,6 +36,6 @@ class Stack {
 
   const operandStack = new Stack();
 
-  // export default Stack;
-
   export default operandStack;
+
+  // export default { operandStack, Stack };

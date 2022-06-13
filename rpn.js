@@ -4,36 +4,26 @@ import operandStack from "./stack.js";
 const operators = ops.operators;
 const computeWithSymbols = ops.computeWithSymbol;
 
-// create helperfunction for operators.has(input)
-const isOperator = (input) => {
-    const firstOperand = operandStack.pop();
-    const secondOperand = operandStack.pop();
-    operandStack.push(computeWithSymbols(input, firstOperand, secondOperand));
-}
-
-const isNumber = (input) => {
-  operandStack.push(input);
-}
-
 class RPN {
-    multipleInputs(answerInArray, operandStack) {
+    multipleInputs(answerInArray) {
+      console.log(answerInArray)
         let begin = 0;
         for (let i = 0; i < answerInArray.length; i += 1) {
           const end = i;
           if (answerInArray[i] === ' ') {
               const input = answerInArray.slice(begin, end).join('');
              if (operators.has(input)) {
-                 isOperator(input);
+              rpn.operatorInput(input);
               } else if (Number.isInteger(parseInt(input))) {
-                isNumber(input);
+                rpn.numberInput(input);
               }
              begin = i + 1;
              } else if (i === answerInArray.length - 1) {
               const input = answerInArray.slice(begin, end + 1).join('');
               if (operators.has(input)) {
-                  isOperator(input);
+                rpn.operatorInput(input);
              } else if (Number.isInteger(parseInt(input))) {
-              isNumber(input);
+              rpn.numberInput(input);
               }
               begin = i + 1;
           }
@@ -41,19 +31,20 @@ class RPN {
     };
 
     //oneEntry and is operand
-    oneNumberInput(answer) {
+    numberInput(answer) {
         operandStack.push(answer);
         console.log(answer);
     };
 
-
     //oneEntry and is operator
-    oneOperatorInput(answer) {
-      isOperator(answer);
+    operatorInput(answer) {
+      const firstOperand = operandStack.pop();
+      const secondOperand = operandStack.pop();
+      operandStack.push(computeWithSymbols(answer, firstOperand, secondOperand));
     };
 
     
-  }
+  };
 
         // find the index where ' ' occurs and breakup and store into individual variables
       // or one variable and continue until no more whitespace or end of length
