@@ -3,6 +3,7 @@ Command Line Utility for Reverse Polish Notation Calculator
 
 
 1) How the Cli-RPN Calculator Works
+
     The command line reverse polish notation calculator works by having readline module prompt the user with a question that allows for receiving input through the command line. dThe readline is nested within a function that is recursively called to allow for repeated entry of input without having to run the module again. 
 
     The readline module then responds according to what the user inputs. If the entered string is either a single operand, operator, or multiples of both, then the methods from the RPN function will be invoked accorddingly. For each operand that is entered, it will then be pushed onto a stack. Since a RPN calculator uses the last two numbers entered by the user to calculate, a stack is used for its last in, first out (LIFO) characteristics. The stack will store as many numbers the user enters. As long as there are at least two numbers in the stack and an operator of either '+', '-', '*', or '/', the last two values from the stack will be removed and used to be calculated with the according operation symbol inputted by the user. The computed number is then pushed back into the stack. 
@@ -10,6 +11,7 @@ Command Line Utility for Reverse Polish Notation Calculator
 
 
 2) Technical and Architechural Decisions
+
     Node.js is being implemented for its ease of scalabilty not only because its written in JavaScript that would allow future integrations with a frontend, but for its non-blocking nature of the event loop. Since the readline for the user input is async and potential tasks in the future such as fetching from a database would also be async, Node.js' non blocking event loop would allow the thread of execution to continue without waiting. In any case, Node.js also has a big support from the community which includes 1.3 million packages that can be installed as dependencies to ease scalability when implementing sockets, files, and etc.
 
     In terms of the ability to prompt the user through the command line, ReadLine was chosen over zx terminal. The zx terminal had all the tools necessary for a command line, but it also meant using another terminal. Instead, readline is part of the Node.js community and only needs to be installed as a dependency without changing terminals. 
@@ -20,8 +22,10 @@ Command Line Utility for Reverse Polish Notation Calculator
 
 
 3) Implementation for Future Updates
+
     Would implement mocha for testing as it stays lightweight from custom configuration as opposed to Jest coming with a full suite of tools that might not necessarily be needed. 
 
 4) How to run rpnCalculator
+
     The code can be ran with 'node index.js'
 
