@@ -1,5 +1,6 @@
 
-import asnycprompt from '../index.js';
+// import asnycprompt from '../index.js';
+import readline from '../index.js';
 import operandStack from '../stack.js';
 
 
@@ -14,13 +15,18 @@ import operandStack from '../stack.js';
 //     });
 // })
 
+describe('inputs for readline prompts', () => {
+    test('Function should close when prompted with exit', () => {
+        let answer = 'quit';
+        expect(console.log(readline)).toEqual('test');
+        
+    });
+})
+
+
 
 
 // describe('inputs for readline prompts', () => {
-
-//     test('When receiving " ", should calculate when there is an operand', () => {
-
-//     });
 
 //     test('Function should prompt "not enough inputs" if stack is less than 2', () => {
 

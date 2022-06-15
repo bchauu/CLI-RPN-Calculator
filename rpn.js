@@ -1,12 +1,12 @@
 import ops from "./operators.js";
 import operandStack from "./stack.js";
+import color from "colors-cli"
 
 const operators = ops.operators;
 const computeWithSymbols = ops.computeWithSymbol;
 
 class RPN {
     multipleInputs(answerInArray) {
-      console.log(answerInArray)
         let begin = 0;
         for (let i = 0; i < answerInArray.length; i += 1) {
           const end = i;
@@ -24,6 +24,8 @@ class RPN {
                 rpn.operatorInput(input);
              } else if (Number.isInteger(parseInt(input))) {
               rpn.numberInput(input);
+              } else {
+                console.log(color.red('invalid inputs were not added'));
               }
               begin = i + 1;
           }

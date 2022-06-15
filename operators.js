@@ -1,6 +1,5 @@
 
 const operators = new Set(['+', '-', '/', '*']);
-console.log(operators);
 
 //to check symbols and compute
 const computeWithSymbol = (input, firstOperand, secondOperand) => {
@@ -15,7 +14,6 @@ const computeWithSymbol = (input, firstOperand, secondOperand) => {
     } else if (input === '/') {
       result = parseInt(secondOperand) / parseInt(firstOperand);
     }
-    // operandStack.push(result);
     console.log(result);
     return result;
   };
