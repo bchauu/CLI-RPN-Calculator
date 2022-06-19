@@ -28,7 +28,7 @@ class Stack {
     clear() {
       this.items = [];
       this.count = 0;
-      console.log('Stack is cleared');
+      console.log(color.black('Stack is cleared'));
       return this.items;
     }
   }

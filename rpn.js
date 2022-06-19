@@ -35,7 +35,7 @@ class RPN {
     //oneEntry and is operand
     numberInput(answer) {
         operandStack.push(answer);
-        console.log(answer);
+        console.log(color.yellow(answer));
         return answer;
     };
 

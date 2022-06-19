@@ -18,6 +18,7 @@ const rl = readline.createInterface({
 console.log(color.blue('This is the Cli RPN calculator'));
 console.log(color.cyan('To exit the calculator, enter "quit"'));
 console.log(color.cyan('To check numbers already entered, enter "check stack"'));
+console.log(color.cyan('To clear and start with a new stack, enter "clear stack"'));
 console.log('These are the operators that can be used:');
 console.log(operators);
 
@@ -59,6 +60,10 @@ const asnycprompt = function () {
     if (answer === 'quit') return rl.close(); // exits command prompt and ends recursion
     if (answer === 'check stack') {
       console.log(operandStack);
+      return asnycprompt();
+    }
+    if (answer === 'clear stack') {
+      operandStack.clear();
       return asnycprompt();
     }
 
