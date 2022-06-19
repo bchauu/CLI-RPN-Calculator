@@ -4,9 +4,9 @@ Command Line Utility for Reverse Polish Notation Calculator
 
 1) How the Cli-RPN Calculator Works
 
-    The command line reverse polish notation calculator works by having readline module prompt the user with a question that allows for receiving input through the command line. dThe readline is nested within a function that is recursively called to allow for repeated entry of input without having to run the module again. 
+    The command line reverse polish notation calculator works by having readline module prompt the user with a question that allows for receiving input through the command line. The readline is nested within a function that is recursively called to allow for repeated entry of input without having to run the module again. 
 
-    The readline module then responds according to what the user inputs. If the entered string is either a single operand, operator, or multiples of both, then the methods from the RPN function will be invoked accorddingly. For each operand that is entered, it will then be pushed onto a stack. Since a RPN calculator uses the last two numbers entered by the user to calculate, a stack is used for its last in, first out (LIFO) characteristics. The stack will store as many numbers the user enters. As long as there are at least two numbers in the stack and an operator of either '+', '-', '*', or '/', the last two values from the stack will be removed and used to be calculated with the according operation symbol inputted by the user. The computed number is then pushed back into the stack. 
+    The readline module then responds according to what the user inputs. The input is then passed into an rpnInputCheck to see if the entered string is either a single operand, operator, or multiples of both, then the methods from the RPN function will be invoked accorddingly. For each operand that is entered, it will then be pushed onto a stack. Since a RPN calculator uses the last two numbers entered by the user to calculate, a stack is used for its last in, first out (LIFO) characteristics. The stack will store as many numbers the user enters. As long as there are at least two numbers in the stack and an operator of either '+', '-', '*', or '/', the last two values from the stack will be removed and used to be calculated with the according operation symbol inputted by the user. The computed number is then pushed back into the stack. 
 
 
 
@@ -24,6 +24,8 @@ Command Line Utility for Reverse Polish Notation Calculator
 3) Implementation for Future Updates
 
     Would implement mocha for testing as it stays lightweight from custom configuration as opposed to Jest coming with a full suite of tools that might not necessarily be needed. 
+
+    Implement dockers to containerize the application so it can run all on all machines. 
 
 4) How to run rpnCalculator
 

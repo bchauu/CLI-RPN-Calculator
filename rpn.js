@@ -1,6 +1,6 @@
 import ops from "./operators.js";
 import operandStack from "./stack.js";
-import color from "colors-cli"
+import color from "colors-cli";
 
 const operators = ops.operators;
 const computeWithSymbols = ops.computeWithSymbol;
@@ -36,13 +36,16 @@ class RPN {
     numberInput(answer) {
         operandStack.push(answer);
         console.log(answer);
+        return answer;
     };
 
     //oneEntry and is operator
     operatorInput(answer) {
       const firstOperand = operandStack.pop();
       const secondOperand = operandStack.pop();
-      operandStack.push(computeWithSymbols(answer, firstOperand, secondOperand));
+      const computed = computeWithSymbols(answer, firstOperand, secondOperand);
+      operandStack.push(computed);
+      return computed;
     };
 
     

@@ -10,23 +10,22 @@ describe("Checking operator symbol function", () => {
         let firstOperand = 4;
         let secondOperand = 5;
 
-          const output = Number.isInteger(10);
-          expect(Number.isInteger(computeWithSymbol(input, firstOperand, secondOperand))).toEqual(output);
-          input = '-'
-          firstOperand = '3';
-          secondOperand = '8';
-          expect(Number.isInteger(computeWithSymbol(input, firstOperand, secondOperand))).toEqual(output);
-          input = '*';
-          expect(Number.isInteger(computeWithSymbol(input, firstOperand, secondOperand))).toEqual(output);
-          input = '/';
-          expect(Number.isInteger(Math.trunc(computeWithSymbol(input, firstOperand, secondOperand)))).toEqual(output);
-        //   expect(true).toEqual(output);
+        const output = Number.isInteger(10);
+        expect(Number.isInteger(computeWithSymbol(input, firstOperand, secondOperand))).toEqual(output);
+        input = '-';
+        firstOperand = '3';
+        secondOperand = '8';
+        expect(Number.isInteger(computeWithSymbol(input, firstOperand, secondOperand))).toEqual(output);
+        input = '*';
+        expect(Number.isInteger(computeWithSymbol(input, firstOperand, secondOperand))).toEqual(output);
+        input = '/';
+        expect(Number.isInteger(Math.trunc(computeWithSymbol(input, firstOperand, secondOperand)))).toEqual(output);
     });
 
     test('function should compute with correct operator passed in', () => {
-       let input = '+';
-       const firstOperand = 6;
-       const secondOperand = 3;
+        let input = '+';
+        const firstOperand = 6;
+        const secondOperand = 3;
         expect(computeWithSymbol(input, firstOperand, secondOperand)).toEqual(9);
         input = '-';
         expect(computeWithSymbol(input, firstOperand, secondOperand)).toEqual(-3);

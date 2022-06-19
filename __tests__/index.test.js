@@ -1,43 +1,48 @@
 
 // import asnycprompt from '../index.js';
-import readline from '../index.js';
+import rpnInputCheck from '../index.js';
 import operandStack from '../stack.js';
+import color from 'colors-cli';
 
+describe('input checks for rpn', () => {
 
-// describe('continuously prompts the user', () => {
-//         test('Function should recursively calls itself', () => {
-//             expect(asnycprompt()).toEqual(asnycprompt)
-// //         expect(RPNCalculator.rl.question()).toEqual(RPNCalculator)
-// //     });
+    test('Function should prompt with error if stack is less than 2 when operator entered', () => {
+        const input = '+';
+        expect(rpnInputCheck(input)).toEqual(color.red('Enter at least two numbers before entering an operator'));
 
-// //     test('Function should close when prompted with exit', () => {
-
-//     });
-// })
-
-describe('inputs for readline prompts', () => {
-    test('Function should close when prompted with exit', () => {
-        let answer = 'quit';
-        expect(console.log(readline)).toEqual('test');
-        
+        operandStack.push('10');
+        expect(rpnInputCheck(input)).toEqual(color.red('Enter at least two numbers before entering an operator'));
     });
-})
+
+    test('Function should compute with input if stack is 2 or greater ', () => {
+        const input = '+';
+        operandStack.push("5");
+        operandStack.push("3");
+        expect(rpnInputCheck(input)).toEqual(8);
+    });
+
+    test('Function should push to stack if it is a number ', () => {
+        const input = '5';
+        operandStack.push(input);
+        const inStack = operandStack.pop();
+        
+        expect(rpnInputCheck(input)).toEqual(inStack);
+    });
 
 
+    test('Function should prompt "invalid input" when non number or operator is entered', () => {
+        let answer = 'three';
+        expect(rpnInputCheck(answer)).toEqual(color.red('Not a valid input. Enter a number or operator'));
+
+        answer = 'q';
+        expect(rpnInputCheck(answer)).toEqual(color.red('Not a valid input. Enter a number or operator'));
 
 
-// describe('inputs for readline prompts', () => {
+        answer = '&';
+        expect(rpnInputCheck(answer)).toEqual(color.red('Not a valid input. Enter a number or operator'));
 
-//     test('Function should prompt "not enough inputs" if stack is less than 2', () => {
 
-//     });
-
-//     test('Function when prompt "check stack", should console log stack', () => {
-
-//     });
-
-//     test('Function should prompt "invalid input" when non number or operator is entered', () => {
-
-//     });
-// })
-//RPN Calculator: how to test recursion; how to test individual units within function
+        answer = '1q';
+        expect(rpnInputCheck(answer)).toEqual(color.red('Not a valid input. A number cannot contain a letter or symbol'));
+    });
+});

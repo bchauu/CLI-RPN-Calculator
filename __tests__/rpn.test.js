@@ -8,15 +8,10 @@ describe('handles one operator entered by user', () => {
         operandStack.push(firstInput);
         operandStack.push(secondInput);
         let result = operandStack.size();
-        // const firstOperand = operandStack.pop();
-        // const secondOperand = operandStack.pop();
         const input = '*';
         rpn.operatorInput(input);
         expect(operandStack.size()).toEqual(result - 1);
         expect(operandStack.pop()).toEqual(firstInput*secondInput);
-        // result = operandStack.size();
-        // operandStack.push(firstOperand*secondOperand);
-        // expect(operandStack.size()).toEqual(result + 1);
     });
 });
 
@@ -25,7 +20,6 @@ describe('handles one operand entered by user', () => {
         const input = 5;
         const result = operandStack.size();
         rpn.numberInput(input);
-        // operandStack.push(input);
         expect(operandStack.size()).toEqual(result + 1);
     });
 });
@@ -51,6 +45,23 @@ describe('handles multiple inputs entered by user', () => {
           rpn.multipleInputs(input);
           expect(console.log(operandStack));
           expect(operandStack.size()).toEqual(2);
+
+          input = [
+            '     '
+          ];
+          operandStack.clear();
+          rpn.multipleInputs(input);
+          expect(console.log(operandStack));
+          expect(operandStack.size()).toEqual(0);
+
+          input = [
+            ' ', 'q', ' ', '1', ' '
+          ];
+          operandStack.clear();
+          rpn.multipleInputs(input);
+          expect(console.log(operandStack));
+          expect(operandStack.size()).toEqual(1);
+
 
     });
 });

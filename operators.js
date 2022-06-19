@@ -6,14 +6,15 @@ const computeWithSymbol = (input, firstOperand, secondOperand) => {
     if (!operators.has(input) || !Number.isInteger(parseInt(firstOperand)) || !Number.isInteger(parseInt(secondOperand))) return 'invalid input';
     let result;
     if (input === '+') {
-      result = parseInt(secondOperand) + parseInt(firstOperand);
+      result = parseFloat(secondOperand) + parseFloat(firstOperand);
     } else if (input === '-') {
-      result = parseInt(secondOperand) - parseInt(firstOperand);
+      result = parseFloat(secondOperand) - parseFloat(firstOperand);
     } else if (input === '*') {
-      result = parseInt(secondOperand) * parseInt(firstOperand);
+      result = parseFloat(secondOperand) * parseFloat(firstOperand);
     } else if (input === '/') {
-      result = parseInt(secondOperand) / parseInt(firstOperand);
+      result = parseFloat(secondOperand) / parseFloat(firstOperand);
     }
+    Number.is
     console.log(result);
     return result;
   };

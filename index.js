@@ -18,8 +18,41 @@ const rl = readline.createInterface({
 console.log(color.blue('This is the Cli RPN calculator'));
 console.log(color.cyan('To exit the calculator, enter "quit"'));
 console.log(color.cyan('To check numbers already entered, enter "check stack"'));
-console.log('These are the operators that can be used:')
-console.log(operators)
+console.log('These are the operators that can be used:');
+console.log(operators);
+
+const rpnInputCheck = function (answer) {
+  const answerInArray = answer.split('');
+  const answerInSet = new Set(answerInArray);
+
+  if (answerInSet.has(' ')) {
+    return multipleInputs(answerInArray);
+
+     //make sure all are not letters if first character in string is a number
+  } else if (operators.has(answer) && operandStack.count >= 2) {
+    return operatorInput(answer);
+  } else if (operators.has(answer) && operandStack.count <= 2) {
+    const errorMessage = color.red('Enter at least two numbers before entering an operator');
+     console.log(errorMessage);
+     return errorMessage;
+  } else if (Number.isInteger(parseInt(answer))) {
+    if (answerInArray.length > 1 && Number.isInteger(parseInt(answerInArray[0]))) {
+      for (let i = 1; i < answerInArray.length; i++) {
+          if (!Number.isInteger(parseInt(answerInArray[i]))) {
+            const errorMessage = color.red('Not a valid input. A number cannot contain a letter or symbol')
+            console.log(errorMessage);
+            return errorMessage;
+          }
+          return numberInput(answer);
+      }
+    }
+    return numberInput(answer);
+  } else if (!Number.isInteger(parseInt(answer))) {
+    const errorMessage = color.red('Not a valid input. Enter a number or operator')
+    console.log(errorMessage);
+    return errorMessage;
+  } 
+}
 
 const asnycprompt = function () {
   rl.question(color.black('Enter a number or operator symbol: '), (answer) => {
@@ -29,22 +62,7 @@ const asnycprompt = function () {
       return asnycprompt();
     }
 
-    const answerInArray = answer.split('');
-    const answerInSet = new Set(answerInArray);
-
-    // checks for multiple inputs at once
-    if (answerInSet.has(' ')) {
-      multipleInputs(answerInArray);
-
-    } else if (operators.has(answer) && operandStack.count >= 2) {
-      operatorInput(answer);
-    } else if (operators.has(answer) && operandStack.count <= 2) {
-      console.log(color.red('Enter at least two numbers before entering an operator'));
-    } else if (Number.isInteger(parseInt(answer))) {
-      numberInput(answer);
-    } else if (!Number.isInteger(parseInt(answer))) {
-      console.log(color.red('Not a valid input. Enter an integer or operator'));
-    }
+    rpnInputCheck(answer);
 
     return asnycprompt(); // recursively calls to continue prompting for additional inputs
   });
@@ -54,4 +72,4 @@ asnycprompt();
 
 // export default asnycprompt;
 
-export default rl.question;
+export default rpnInputCheck;
