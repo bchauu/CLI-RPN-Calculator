@@ -14,7 +14,7 @@ Command Line Utility for Reverse Polish Notation Calculator
 
     Node.js is being implemented for its ease of scalabilty not only because its written in JavaScript that would allow future integrations with a frontend, but for its non-blocking nature of the event loop. Since the readline for the user input is async and potential tasks in the future such as fetching from a database would also be async, Node.js' non blocking event loop would allow the thread of execution to continue without waiting. In any case, Node.js also has a big support from the community which includes 1.3 million packages that can be installed as dependencies to ease scalability when implementing sockets, files, and etc.
 
-    In terms of the ability to prompt the user through the command line, ReadLine was chosen over zx terminal. The zx terminal had all the tools necessary for a command line, but it also meant using another terminal. Instead, readline is part of the Node.js community and only needs to be installed as a dependency without changing terminals. 
+    In terms of the ability to prompt the user through the command line, ReadLine was chosen over zx terminal. The zx terminal had all the tools necessary for a command line, but it also meant using another terminal which would be a bit of inconvenience for the user and is mainly meant for scripting. Instead, readline only needs to be installed as a dependency without changing terminals. 
 
     For testing, Jest was chosen for its out of the box usage. It alraedy comes with a full suite of test tools so no additional dependencies would be required. Its syntax is also easy to understand since it is more logical so even those without knowledge of testing can contribute.
 
